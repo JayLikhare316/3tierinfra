@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('pull') {
             steps {
-                git 'https://github.com/mayurmwagh/angular-java.git'
+                git branch: 'master', url: 'https://github.com/mayurmwagh/angular-java.git'
             }
         }
         stage('build') {
