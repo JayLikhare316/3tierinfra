@@ -2,14 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('pull') {
             steps {
-                echo 'Building...'
+                git 'https://github.com/mayurmwagh/angular-java.git'
             }
         }
-        stage('Deploy') {
+        stage('build') {
             steps {
-                echo 'Deploying...'
+                script {
+                    sh 'mvn clean package'
+                }
+            }
+        stage('deploy') {
+            steps {
+                script {
+                    sh 'docker build -t jaylikhare316/angular-java:latest .'
+                    sh 'docker run -d -p 8080:8080 mayurmwagh/angular-java:latest'
+                }
             }
         }
     }
